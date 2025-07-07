@@ -1,5 +1,6 @@
 package com.application.example.online_bidding_system.service;
 
+import com.application.example.online_bidding_system.dto.email.EmailDetails;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -34,6 +35,18 @@ public class Emailservice {
             throw new RuntimeException("Failed to send email", e);
         } catch (Exception e) {
             throw new RuntimeException("Error setting sender name", e);
+        }
+    }
+
+    public void sendSimpleMail(EmailDetails details) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(details.getTo());
+            message.setSubject(details.getSubject());
+            message.setText(details.getBody());
+            mailSender.send(message);
+        } catch (Exception e) {
+            System.out.println("Email sending failed: " + e.getMessage());
         }
     }
 }

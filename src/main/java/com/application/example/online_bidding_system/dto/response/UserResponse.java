@@ -10,5 +10,5 @@ public class UserResponse {
     private String studentEmail;
     private String department;
     private Role role;
-    private String collegeId;
+    private String collageId;
 }

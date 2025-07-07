@@ -13,12 +13,6 @@ import java.util.Optional;
 public interface BidderApplicationRepository extends JpaRepository<BidderApplication, Long> {
     // Find by user
     Optional<BidderApplication> findByUser(User user);
-
-    // Find all applications with a specific status
     List<BidderApplication> findByStatus(Status status);
-
-    // Check if user has submitted an application
     boolean existsByUser(User user);
-
-    Optional<BidderApplication> findByUserStudentId(Long studentID); // ✅ Correct way
 }

@@ -9,15 +9,13 @@ import java.security.Principal;
 import java.util.List;
 
 public interface BidderApplicationService {
-    ResponseEntity<BidderApplicationResponse> applyAsBidder(Long userId, BidderApplicationRequest request);
+    ResponseEntity<BidderApplicationResponse> applyAsBidder(BidderApplicationRequest request);
     ResponseEntity<String> approveApplication(Long applicationId);
     ResponseEntity<String> rejectApplication(Long applicationId);
-
-    // Update application status
     ResponseEntity<String> updateApplicationStatus(Long applicationId, Status newStatus);
-
     List<BidderApplicationResponse> getApplicationsByStatus(Status status);
-    boolean hasUserApplied(Long userId);
+    boolean hasUserApplied(String collegeId);
     Boolean hasUserAlreadyApplied(Principal principal);
     ResponseEntity<String> applyForBidding(BidderApplicationRequest request, Principal principal);
 }
+

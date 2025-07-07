@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Data
 public class BidderApplicationRequest {
-    private String studentName;        // autofilled
-    private String studentEmail;              // autofilled
-    private Long phoneNumber;          // user input
-    private String otp;                // user enters received OTP
+    private String studentName;
+    private String collageId;
+    private String studentEmail;
+    private Long phoneNumber;
+    private String otp;
     private boolean termsAccepted;
 }

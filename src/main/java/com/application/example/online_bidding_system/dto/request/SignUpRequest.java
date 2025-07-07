@@ -10,7 +10,7 @@ public class SignUpRequest {
     private String studentId;
 
     @NotBlank(message = "College ID is required")
-    private String collegeId;
+    private String collageId;
 
     @NotBlank(message = "Student name is required")
     @Size(min = 2, max = 50, message = "Student name must be between 2 and 50 characters")

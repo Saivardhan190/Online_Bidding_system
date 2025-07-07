@@ -26,6 +26,7 @@ public class AuthService {
         user.setDepartment(signUpRequest.getDepartment());
         user.setGender(signUpRequest.getGender());
         user.setYear(signUpRequest.getYear());
+        user.setCollageId(signUpRequest.getCollageId());
         user.setRole(Role.USER); // default
 
         // Step 2: Save user in database
@@ -37,6 +38,7 @@ public class AuthService {
         response.setStudentName(user.getStudentName());
         response.setStudentEmail(user.getStudentEmail());
         response.setDepartment(user.getDepartment());
+        response.setCollageId(user.getCollageId());
         response.setRole(user.getRole());
 
         // Step 4: Return response DTO
@@ -58,6 +60,7 @@ public class AuthService {
         response.setStudentName(user.getStudentName());
         response.setStudentEmail(user.getStudentEmail());
         response.setDepartment(user.getDepartment());
+        response.setCollageId(user.getCollageId());
         response.setRole(user.getRole());
 
         LoginResponse loginResponse = new LoginResponse();
