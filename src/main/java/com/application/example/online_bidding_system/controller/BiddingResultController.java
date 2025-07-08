@@ -16,22 +16,17 @@ public class BiddingResultController {
     @Autowired
     private BiddingResultService resultService;
 
+
     // Get result by stallId
     @GetMapping("/stall/{stallId}")
     public ResponseEntity<?> getResultByStall(@PathVariable Long stallId) {
         return resultService.getResultByStallId(stallId);
     }
 
-    // Get all winners (results)
+    // Get all winners
     @GetMapping("/winners")
     public List<BiddingResultResponse> getAllWinners() {
         return resultService.getAllResults();
-    }
-
-    @PostMapping("/declare")
-    public ResponseEntity<String> declareResult(@RequestBody BiddingResult result) {
-        resultService.declareResult(result);
-        return ResponseEntity.ok("Result saved and email sent.");
     }
 
 

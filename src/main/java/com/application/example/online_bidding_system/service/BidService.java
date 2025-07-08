@@ -39,6 +39,10 @@ public class BidService {
         Stall stall = stallOpt.get();
         User bidder = bidderOpt.get();
 
+        if (stall.getStatus() == StallStatus.CLOSED) {
+            return ResponseEntity.badRequest().body(new BidResponse("Bidding is closed for this stall", BigDecimal.ZERO));
+        }
+
         if (stall.getStatus() != StallStatus.ACTIVE) {
             return ResponseEntity.badRequest().body(new BidResponse("Stall is not active", BigDecimal.ZERO));
         }
@@ -61,6 +65,24 @@ public class BidService {
 
         lastBidTimeMap.put(stall.getStallId(), LocalDateTime.now());
 
+        if (newBid.compareTo(stall.getOriginalPrice()) >= 0) {
+            stall.setStatus(StallStatus.CLOSED);
+
+            if (stall.getResult() == null && biddingResultRepository.findByStall(stall).isEmpty()) {
+                BiddingResult result = new BiddingResult();
+                result.setStall(stall);
+                result.setWinner(bidder);
+                result.setWinningPrice(newBid);
+                result.setResultTime(bid.getBidTime());
+                biddingResultRepository.save(result);
+
+                stall.setResult(result);
+            }
+
+            stallRepository.save(stall);
+        }
+
+        // ✅ Finally, return the response
         BidResponse response = new BidResponse();
         response.setBidId(bid.getBidId());
         response.setBiddedPrice(bid.getBiddedPrice());
@@ -70,6 +92,8 @@ public class BidService {
 
         return ResponseEntity.ok(response);
     }
+
+
 
     // Get all bids for a stall
     public List<BidResponse> getAllBids(Long stallId) {
